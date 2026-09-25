@@ -4,6 +4,9 @@ def geef_invoer_aan_appels_return_uitvoer(capsys, monkeypatch, inputs):
     """
     import sys
     sys.modules.pop("reeks_1_expressies.appels", None)  # module telkens opnieuw laden
+    package = sys.modules.get("reeks_1_expressies")
+    if package is not None:
+        package.__dict__.pop("appels", None)
     invoer_iter = iter(inputs)
     monkeypatch.setattr("builtins.input", lambda: next(invoer_iter))
     import reeks_1_expressies.appels as appels
